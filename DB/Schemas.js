@@ -9,7 +9,10 @@ MySchemes ={
             type: Date,
             default:Date.now
         }, 
-        count: Number,
+        count: {
+            type: Number,
+            default :0
+        },
         createdListings: [
             {
                 type : Scheme.Types.ObjectId,
@@ -24,8 +27,7 @@ MySchemes ={
         ]
     }),
 
-    listing : Scheme({
-        _id: Scheme.Types.ObjectId,
+    Listing : Scheme({
         createdAt: {
             type: Date,
             default:Date.now
@@ -34,7 +36,7 @@ MySchemes ={
         description: String
     }),
 
-    application : Scheme({
+    Application : Scheme({
         _id: Scheme.Types.ObjectId,
         createdAt: {
             type: Date,
@@ -52,8 +54,7 @@ MySchemes ={
 MyModels =
 {
     User: mongoose.model("User",MySchemes.User),
-    listing: mongoose.model("listing",MySchemes.listing),
-    application: mongoose.model("application",MySchemes.application)
+    Listing: mongoose.model("Listing",MySchemes.Listing),
+    application: mongoose.model("Application",MySchemes.Application)
 }
 module.exports = {MYMODELS: MyModels,MYSCHEMES :MySchemes};
-

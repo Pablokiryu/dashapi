@@ -1,11 +1,11 @@
 {
   "name": "dashboard-api",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": " Backend API for Dashboards",
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "start": "nodemon Server.js"
+    "startd": "nodemon Server.js"
   },
   "keywords": [
     "Dashboard",
