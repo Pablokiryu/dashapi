@@ -4,10 +4,31 @@
 
 
 ### Endpoints are :
-  #### GET /users/
+  #### GET /Users/
 
-    wich should return an array of all `users`.
+    Returns an array of all `users`.
 
-  #### GET /users/:id?
+  #### POST /Users/?name=NewName
+    Creates a New `User` Named `{NewName}`.
+
+  #### GET /Users/:id?
   
-    returns the detailed info on `User` {id}.
+    Returns the detailed info on the `User` with the corresponding `{id}`.
+  
+  #### PATCH /Users/:id?
+    Adds info to the `User` with the corresponding `{id}`
+
+  
+  #### GET /Listings
+    Returns all `listings`.
+
+  #### POST /Listings
+    Creates a new `Listing`,
+    Needs a `{Name}` and a `{Description}`.
+
+  #### GET /Applications
+    Returns all `Apllications`.
+
+  #### POST /Applications/?ListingId=
+    Creates a new `Application`,
+    Needs a `{ListingID`} and a `{coverLetter}`.
