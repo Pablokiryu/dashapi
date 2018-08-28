@@ -9,14 +9,26 @@ const topActiveUsersRoutes = require("./API/Routes/topActiveUsers");
 const ListingsRoutes = require("./API/Routes/Listings");
 const ApplicationRoutes = require("./API/Routes/Applications");
 
+//Promise Based MongoDb connection
 mongoose.connect("mongodb://localhost/dashboard",{useNewUrlParser : true})
 .then(()=> console.log("mongoDbConnected"))
 .catch(err => conso.log(err));
 
-
+//Useful middleware
 app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+app.use((req,res,next)=>{
+    res.header("Access-Control-Allow-Origin","*");//Everyone is
+    res.header("Access-Control-Allow-Headers","Origin,X-Requested-With,Content-Type,Accept,Authorization");
+    if(req.method === "OPTIONS")
+    {
+        res.header("Access-Control-Allow-Methods","GET, POST");
+        return res.status(200).json({});
+    }
+    next();
+});
 
 //adding routes Middleware
 app.use("/Users", userRoutes);
