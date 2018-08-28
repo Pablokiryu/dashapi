@@ -1,80 +1,116 @@
 const express = require("express");
 const router = express.Router();
-const myModels = require("./../../DB/Schemas.js").MYMODELS;
-const mongoose = require("mongoose");
+const {User,Listing,Application} = require("./../../DB/Schemas.js").MYMODELS;
 
-const mySchemes = require("./../../DB/Schemas.js").MYSCHEMES;
-
-
-
-router.post("/", (req, res, next) => {
-
-    const name = req.query.name;
-
-    var newUser = new myModels.User;
-
-    newUser.name = name;
-    newUser.count = 0;
-    newUser.save((err) => {
-        if (err) throw err;
-        console.log("New User : " + newUser.name + "saved to DB successfully");
-    })
-
-    res.status(201).json({
-        message: "Handling Post Request Users route",
-    });
-});
+///Returns FULL JSON data on all users
 router.get("/", (req, res, next) => {
 
-   res.status(200).json({
-        message: "Handling GET Request Users route"
+    User.find().then((users)=>{
+        res.status(200).json(users);
+    },(err)=>{
+        res.status(400).send(err);
+    });
+
+});
+
+/// Used to Include new users
+router.post("/",(req,res)=>{
+
+    var user = new User({
+        name: req.body.name
+    });
+
+    user.save().then((doc)=>
+    {
+        res.send(doc);
+    },(err)=>{
+        res.status(400).send(err);
     });
 });
 
-
+//Returns info on selected User
 router.get("/:id", (req, res, next) => {
-    const id = req.params.id;
-    var UserArr = [];
-    console.log(req.params);
-    myModels.User.find().exec((err, Users)=>{
-        if (err) throw err;
-        UserArr = Users;
-        console.log(Users);
+    
+    const nid = req.params.id;
+    console.log(nid);
+    User.find({_id:nid}).then((User)=>{
+        res.send({User});
+    },(err)=>{
+        res.status(400).send(err);
     });
-    // var users = myModels.User.find();
-    res.status(200).json({
-        message: "You selected User ID " + id,
-        id: id,
-       // users: users
-
-    });
+    // var users = User.find();
+    // res.status(200).json({
+    //     message: "You selected User ID " + id,
+    //     id: id,
+    //     // users: users
 
 });
-router.patch("/:id", (req, res, next) => {
-    const id = req.params.id
-    const idStr = id.toString();
-    res.status(200).json(
+
+//Insert new Listing by user
+//New listing doc is created on DB,
+//User.Listings is appended new Listing
+//User.Count should be incremented by 1.
+//Done
+router.post("/Listing",(req,res)=>{
+    // res.send({message: `${req.body.id} is trying to add a new Listin`});
+    
+    var newListing = new Listing({
+        name: req.body.name,
+        description : req.body.description
+    });
+    newListing.save().then((doc)=>
+    {
+        User.update({_id:req.body.id},{ $push: {createdListings:{$each :[doc._id],$position: 0}}, $inc:{count:1} },(err,res)=>
         {
-            message: "patching id: " + idStr,
-            id: id
+            if(err) return err;
+            console.log(res);
         });
+        
+        res.send(doc);
+    },(err)=>{
+        res.status(400).send(err);
+    });
 });
 
+// Apply to a new Listing
+//New Application doc is created on DB
+//setting the reference to the Existing Listing ID.
+// User.Application is appended the new Application
+router.post("/Application",(req,res)=>{
+
+    var newApplication = new Application({
+        coverLetter : req.body.coverLetter,
+        listing     : req.body.listingId
+    });
+
+    newApplication.save().then((doc)=>{
+        User.update({_id:req.body.id},{$push: {applications:{$each :[doc._id],$position: 0}} },(err,res)=>
+        {
+            if(err) return err;
+            console.log(res);
+        });
+        
+        res.send(doc);
+    },(err)=>{
+        res.status(400).send(err);
+    });
+    console.log({message: `${req.body.id} is trying to apply to a new Listing, therefore creating a new application`});
+    
+});
+
+
+
+//Delete User?
 router.delete("/:id", (req, res, next) => {
-    const id = req.params.id
-    const idStr = id.toString();
-    res.status(200).json(
-        {
-            message: "deleting id: " + idStr,
-            id: id
-        });
-
-});
-
-
-router.post("/", (req, res, next) => {
-    res.status(201).json({
-        message: "Handling Post Request Users route"
+    ///TODO: Delete user with corresponding id.
+    //Delete it's listings? make the user in the listing Doc null? so many questions.
+    const id = req.params.id;
+    User.deleteOne({_id:id}).then((result)=>{
+        res.status(200).json(result);
+    }).catch((err)=>{
+        console.log(err);
+        res.status(500).json({error:err});
     });
 });
+
 module.exports = router;

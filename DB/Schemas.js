@@ -12,8 +12,8 @@ MySchemes ={
         description: String
     }),
 
+    ///Maybe Application should be a SubDocument, instead of a separate Collection....Maybe.
     Application : Scheme({
-        _id: Scheme.Types.ObjectId,
         createdAt: {
             type: Date,
             default:Date.now
@@ -55,6 +55,6 @@ MyModels =
 {
     User: mongoose.model("User",MySchemes.User),
     Listing: mongoose.model("Listing",MySchemes.Listing),
-    application: mongoose.model("Application",MySchemes.Application)
+    Application: mongoose.model("Application",MySchemes.Application)
 }
 module.exports = {MYMODELS: MyModels,MYSCHEMES :MySchemes};

@@ -24,7 +24,10 @@
     Needs a `{ListingID`} and a `{coverLetter}`.
 
   #### GET /Listings
-    Returns all `listings`.
+    Returns all `listings` from all Users.
 
   #### GET /Applications
-    Returns all `Apllications`.
+    Returns all `Apllications` from all Users.
+
+  #### GET /topActiveUsers
+    Returns the Users list, ordered by last listing posted, containing only the last 3 listings for each user.
