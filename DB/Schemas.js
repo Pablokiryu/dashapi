@@ -3,30 +3,6 @@ mongoose.connect("mongodb://localhost/dashboard",{useNewUrlParser : true});
 const Scheme = mongoose.Schema;
 
 MySchemes ={
-    User : Scheme({
-        name:String,
-        createdAt: {
-            type: Date,
-            default:Date.now
-        }, 
-        count: {
-            type: Number,
-            default :0
-        },
-        createdListings: [
-            {
-                type : Scheme.Types.ObjectId,
-                ref : "listing"
-            }
-        ],
-        applications: [
-            {
-                type : Scheme.Types.ObjectId,
-                ref : "appplication"
-            }
-        ]
-    }),
-
     Listing : Scheme({
         createdAt: {
             type: Date,
@@ -48,6 +24,30 @@ MySchemes ={
             description: String
         },
         coverLetter : String
+    }),
+
+    User : Scheme({
+        name:String,
+        createdAt: {
+            type: Date,
+            default:Date.now
+        }, 
+        count: {
+            type: Number,
+            default :0
+        },
+        createdListings: [
+            {
+                type : Scheme.Types.ObjectId,
+                ref : "Listing"
+            }
+        ],
+        applications: [
+            {
+                type : Scheme.Types.ObjectId,
+                ref : "Appplication"
+            }
+        ]
     })
 }
 
