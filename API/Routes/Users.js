@@ -6,7 +6,8 @@ const {User,Listing,Application} = require("./../../DB/Schemas.js").MYMODELS;
 router.get("/", (req, res, next) => {
 
     User.find().then((users)=>{
-        res.status(200).json(users);
+
+        res.status(200).json({total_User_count : users.length,users: users });
     },(err)=>{
         res.status(400).send(err);
     });
@@ -22,7 +23,7 @@ router.post("/",(req,res)=>{
 
     user.save().then((doc)=>
     {
-        res.send(doc);
+        res.send({createdUser:doc,GetURl:`localhost:3000/Users/${doc._id}`});
     },(err)=>{
         res.status(400).send(err);
     });
@@ -33,7 +34,7 @@ router.get("/:id", (req, res, next) => {
     
     const nid = req.params.id;
     console.log(nid);
-    User.find({_id:nid}).then((User)=>{
+    User.find({_id:nid}).select("name _id applications count createdAt").then((User)=>{
         res.send({User});
     },(err)=>{
         res.status(400).send(err);
@@ -46,56 +47,38 @@ router.get("/:id", (req, res, next) => {
 
 });
 
-//Insert new Listing by user
-//New listing doc is created on DB,
-//User.Listings is appended new Listing
-//User.Count should be incremented by 1.
-//Done
-router.post("/Listing",(req,res)=>{
-    // res.send({message: `${req.body.id} is trying to add a new Listin`});
-    
-    var newListing = new Listing({
-        name: req.body.name,
-        description : req.body.description
-    });
-    newListing.save().then((doc)=>
-    {
-        User.update({_id:req.body.id},{ $push: {createdListings:{$each :[doc._id],$position: 0}}, $inc:{count:1} },(err,res)=>
-        {
-            if(err) return err;
-            console.log(res);
-        });
-        
-        res.send(doc);
-    },(err)=>{
-        res.status(400).send(err);
-    });
-});
-
 // Apply to a new Listing
 //New Application doc is created on DB
 //setting the reference to the Existing Listing ID.
 // User.Application is appended the new Application
-router.post("/Application",(req,res)=>{
+router.post("/Application",(req,response)=>{
 
     var newApplication = new Application({
+        UserId : req.body.userId, 
         coverLetter : req.body.coverLetter,
-        listing     : req.body.listingId
+        listing    : {_id:req.body.listingId}
     });
-
-    newApplication.save().then((doc)=>{
-        User.update({_id:req.body.id},{$push: {applications:{$each :[doc._id],$position: 0}} },(err,res)=>
-        {
-            if(err) return err;
-            console.log(res);
+    var user;
+    newApplication.save()
+    .then((savedoc)=>{ newApplication = savedoc;
+        console.log(newApplication);
+        return User.findById(req.body.userId).exec()})
+    .then((userFromDb) =>{
+        user = userFromDb;
+        user.applications.unshift(newApplication._id);
+        user.count++;
+        return user.save();
+    }).then(() =>
+    {
+        response.status(201).send({
+            Application: newApplication,
+            User : user,
+            UserGETUrl: `localhost:3000/Users/${user._id}`
         });
-        
-        res.send(doc);
-    },(err)=>{
-        res.status(400).send(err);
+    })
+    .catch((err)=>{
+        response.status(400).send(err);
     });
-    console.log({message: `${req.body.id} is trying to apply to a new Listing, therefore creating a new application`});
-    
 });
 
 
@@ -103,7 +86,6 @@ router.post("/Application",(req,res)=>{
 //Delete User?
 router.delete("/:id", (req, res, next) => {
     ///TODO: Delete user with corresponding id.
-    //Delete it's listings? make the user in the listing Doc null? so many questions.
     const id = req.params.id;
     User.deleteOne({_id:id}).then((result)=>{
         res.status(200).json(result);
