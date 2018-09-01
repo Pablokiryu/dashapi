@@ -3,17 +3,28 @@ mongoose.connect("mongodb://localhost/dashboard",{useNewUrlParser : true});
 const Scheme = mongoose.Schema;
 
 MySchemes ={
+    ///Job listing
     Listing : Scheme({
         createdAt: {
             type: Date,
             default:Date.now
         },
-        name: String,
-        description: String
+        name:{
+            type :String,
+            required:true
+        },
+        description:{
+            type :String,
+            required:true
+        }
     }),
 
-    ///Maybe Application should be a SubDocument, instead of a separate Collection....Maybe.
+    //Application for a job Listing. Done by An user
     Application : Scheme({
+        UserId : {
+            type : Scheme.Types.ObjectId,
+            ref : "User"
+        },
         createdAt: {
             type: Date,
             default:Date.now
@@ -23,11 +34,17 @@ MySchemes ={
             name: String,
             description: String
         },
-        coverLetter : String
+        coverLetter :{
+            type: String,
+            required: true
+        }
     }),
 
     User : Scheme({
-        name:String,
+        name:{
+            type: String,
+            required: true
+        },
         createdAt: {
             type: Date,
             default:Date.now
@@ -36,12 +53,6 @@ MySchemes ={
             type: Number,
             default :0
         },
-        createdListings: [
-            {
-                type : Scheme.Types.ObjectId,
-                ref : "Listing"
-            }
-        ],
         applications: [
             {
                 type : Scheme.Types.ObjectId,
