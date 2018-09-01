@@ -1,5 +1,3 @@
-[](I know my commenting on this particular project has been overly verbose, but since this is an study project i wont cleanup.)
-
 # Dashapi
 ## Minimal DashBoard API
 
