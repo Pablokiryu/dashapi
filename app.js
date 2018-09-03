@@ -10,9 +10,9 @@ const ListingsRoutes = require("./API/Routes/Listings");
 const ApplicationRoutes = require("./API/Routes/Applications");
 
 //Promise Based MongoDb connection
-mongoose.connect("mongodb://localhost/dashboard",{useNewUrlParser : true})
+mongoose.connect("mongodb://mongo:27017/dashboard",{useNewUrlParser : true})
 .then(()=> console.log("mongoDbConnected"))
-.catch(err => conso.log(err));
+.catch(err => console.log(err));
 
 //Useful middleware
 app.use(morgan("dev"));
