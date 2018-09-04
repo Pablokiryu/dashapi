@@ -4,7 +4,8 @@
   "description": " Backend API for Dashboards",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "testd": " nodemon --exec \"npm test\" ",
+    "test": "mocha **/*.test.js",
     "startd": "nodemon Server.js",
     "start": "node Server.js"
   },
@@ -15,6 +16,7 @@
   "author": "Pablo Freitas Machado",
   "license": "ISC",
   "devDependencies": {
+    "expect": "^1.20.2",
     "jest": "^23.5.0",
     "mocha": "^5.2.0",
     "nodemon": "^1.18.3"
