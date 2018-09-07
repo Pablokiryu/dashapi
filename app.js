@@ -9,8 +9,9 @@ const topActiveUsersRoutes = require("./API/Routes/topActiveUsers");
 const ListingsRoutes = require("./API/Routes/Listings");
 const ApplicationRoutes = require("./API/Routes/Applications");
 
-//Promise Based MongoDb connection
-mongoose.connect("mongodb://mongo:27017/dashboard",{useNewUrlParser : true})
+                                    //Production URI  "mongodb://mongo:27017/dashboard" should have a mongo container named mongo running on port 27017
+//Promise Based MongoDb connection  TESTURI : "mongodb://localhost/dashboardtest"  should have a local mongo instance running //TODO pass URI as param to App.js
+mongoose.connect("mongodb://localhost/dashboardtest",{useNewUrlParser : true})
 .then(()=> console.log("mongoDbConnected"))
 .catch(err => console.log(err));
 
@@ -47,8 +48,8 @@ app.use((req,res,next) =>
 
 //Database error
 app.use((error,req,res,next) =>{
-res.status(error.status || 500)
-res.json({
+    res.status(error.status || 500);
+    res.json({
         error:{
             message: error.message
         }

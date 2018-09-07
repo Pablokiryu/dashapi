@@ -2,6 +2,20 @@ const express = require("express");
 const router = express.Router();
 const {User,Listing,Application} = require("./../../DB/Schemas.js").MYMODELS;
 
+/// Used to Include new users
+router.post("/",(req,res)=>{
+
+    var user = new User({
+        name: req.body.name
+    });
+
+    user.save().then((doc)=>
+    {
+        res.status(201).send({createdUser:doc,GetURl:`localhost/Users/${doc._id}`});
+    },(err)=>{
+        res.status(400).send(err);
+    });
+});
 ///Returns FULL JSON data on all users
 router.get("/", (req, res, next) => {
 
@@ -14,20 +28,6 @@ router.get("/", (req, res, next) => {
 
 });
 
-/// Used to Include new users
-router.post("/",(req,res)=>{
-
-    var user = new User({
-        name: req.body.name
-    });
-
-    user.save().then((doc)=>
-    {
-        res.send({createdUser:doc,GetURl:`localhost:3000/Users/${doc._id}`});
-    },(err)=>{
-        res.status(400).send(err);
-    });
-});
 
 //Returns info on selected User
 router.get("/:id", (req, res, next) => {
@@ -73,7 +73,7 @@ router.post("/Application",(req,response)=>{
         response.status(201).send({
             Application: newApplication,
             User : user,
-            UserGETUrl: `localhost:3000/Users/${user._id}`
+            UserGETUrl: `localhost/Users/${user._id}`
         });
     })
     .catch((err)=>{

@@ -32,7 +32,7 @@ router.post("/",(req,res)=>{
     });
     newListing.save().then((doc)=>
     {
-            res.status(201).send({newListing : doc,getURL : `localhost:3000/Listings/${doc._id}` });
+            res.status(201).send({newListing : doc,getURL : `localhost/Listings/${doc._id}` });
     },(err)=>{
         res.status(400).send(err);
     });

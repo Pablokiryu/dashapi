@@ -1,11 +1,11 @@
 {
   "name": "dashboard-api",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": " Backend API for Dashboards",
   "main": "index.js",
   "scripts": {
     "testd": " nodemon --exec \"npm test\" ",
-    "test": "mocha **/*.test.js",
+    "test": "jest **/*.test.js",
     "startd": "nodemon Server.js",
     "start": "node Server.js"
   },
@@ -16,13 +16,14 @@
   "author": "Pablo Freitas Machado",
   "license": "ISC",
   "devDependencies": {
-    "expect": "^1.20.2",
     "jest": "^23.5.0",
-    "mocha": "^5.2.0",
-    "nodemon": "^1.18.3"
+    "mongodb-memory-server": "^2.1.0",
+    "nodemon": "^1.18.3",
+    "supertest": "^3.2.0"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
+    "expect": "^1.20.2",
     "express": "^4.16.3",
     "mongoose": "^5.2.9",
     "morgan": "^1.9.0"
