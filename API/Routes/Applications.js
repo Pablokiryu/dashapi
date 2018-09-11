@@ -22,6 +22,16 @@ router.get("/:id", (req, res, next) => {
     });
 });
 
-
+router.delete("/:id",(req,res,next)=>{
+    
+    const id = req.params.id;
+    Application.deleteOne({_id:id}).then((result)=>{
+        //TODO: antes de retornar , apagar a application, do usuario que a fez. 
+        res.status(200).json({result});
+    }).catch((err)=>{
+        console.log(err);
+        res.status(500).json({error:err});
+    });
+});
 
 module.exports = router;

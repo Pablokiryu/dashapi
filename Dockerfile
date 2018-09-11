@@ -4,4 +4,7 @@ COPY package*.json ./
 RUN npm install
 COPY . .
 EXPOSE 3000
+ENV MONGOURI=MONGOURI
+RUN adduser -D myuser
+USER myuser
 CMD ["npm", "start"]

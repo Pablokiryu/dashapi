@@ -1,8 +1,8 @@
 {
   "name": "dashboard-api",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "description": " Backend API for Dashboards",
-  "main": "index.js",
+  "main": "Server.js",
   "scripts": {
     "testd": " nodemon --exec \"npm test\" ",
     "test": "jest **/*.test.js",
@@ -17,7 +17,6 @@
   "license": "ISC",
   "devDependencies": {
     "jest": "^23.5.0",
-    "mongodb-memory-server": "^2.1.0",
     "nodemon": "^1.18.3",
     "supertest": "^3.2.0"
   },
