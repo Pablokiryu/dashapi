@@ -1,0 +1,22 @@
+{
+  "name": "Dashboard API",
+  "description": "mock Dashboard API for a job website",
+  "scripts": {
+  },
+  "env": {
+    "MONGOURI": {
+      "required": true
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "addons": [
+
+  ],
+  "buildpacks": [
+
+  ]
+}
