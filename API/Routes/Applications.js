@@ -1,37 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const {Application} = require("./../../DB/Schemas.js").MYMODELS; 
-const mongoose = require("mongoose");
-const mySchemes = require("./../../DB/Schemas.js").MYSCHEMES;
+const ApplicationsController = require("./Applications.controller.js");
 
-router.get("/",(req,res,next)=>{
-    Application.find().then( (doc)=>
-    {
-        res.send(doc);
-    },(err)=>{
-        res.status(400).send(err);
-    });
-});
+router.get("/",(req,res,next)=>{ApplicationsController.get(req,res)});
 
-router.get("/:id", (req, res, next) => {
+router.get("/:id", (req, res, next) => { ApplicationsController.getId(req,res)});
 
-    Application.find({_id:req.params.id}).then((ReqApplication) => {
-        res.send({ ReqApplication });
-    }, (err) => {
-        res.status(400).send(err);
-    });
-});
-
-router.delete("/:id",(req,res,next)=>{
-    
-    const id = req.params.id;
-    Application.deleteOne({_id:id}).then((result)=>{
-        //TODO: antes de retornar , apagar a application, do usuario que a fez. 
-        res.status(200).json({result});
-    }).catch((err)=>{
-        console.log(err);
-        res.status(500).json({error:err});
-    });
-});
+router.delete("/:id",(req,res,next)=>{ApplicationsController.delete(req,res)});
 
 module.exports = router;

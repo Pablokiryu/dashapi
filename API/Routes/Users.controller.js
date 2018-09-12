@@ -1,4 +1,4 @@
-const {User,Listing,Application} = require("../../DB/Schemas.js").MYMODELS;
+const {User,Application} = require("../../DB/Schemas.js").MYMODELS;
 
 
 exports.get = function(req,res){
@@ -7,7 +7,7 @@ exports.get = function(req,res){
     },(err)=>{
         res.status(400).send(err);
     });
-}
+};
 
 exports.post = function (req,res){
     var user = new User({
@@ -19,7 +19,7 @@ exports.post = function (req,res){
     },(err)=>{
         res.status(400).send(err);
     });
-}
+};
 
 exports.getId = function(req,res){
     const nid = req.params.id;
@@ -29,7 +29,7 @@ exports.getId = function(req,res){
     },(err)=>{
         res.status(400).send(err);
     });
-}
+};
 
 // Apply to a new Listing
 //New Application doc is created on DB
@@ -62,7 +62,7 @@ exports.newApplication= function(req,res){
     .catch((err)=>{
         res.status(400).send(err);
     });
-}
+};
 
 exports.delete = function (req,res) {
         const id = req.params.id;
@@ -72,4 +72,4 @@ exports.delete = function (req,res) {
             console.log(err);
             res.status(500).json({error:err});
         });
-}
+};

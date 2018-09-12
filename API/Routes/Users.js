@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const {User,Listing,Application} = require("./../../DB/Schemas.js").MYMODELS;
 const UserController = require("./Users.controller.js");
 
 ///Returns FULL JSON data on all users
