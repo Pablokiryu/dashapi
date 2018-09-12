@@ -1,6 +1,6 @@
 {
   "name": "Dashboard API",
-  "description": "mock Dashboard API for a job website",
+  "description": "mock Dashboard API for a job posting website",
   "scripts": {
   },
   "env": {
