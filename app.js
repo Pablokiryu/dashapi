@@ -9,7 +9,6 @@ const topActiveUsersRoutes = require("./API/Routes/topActiveUsers");
 const ListingsRoutes = require("./API/Routes/Listings");
 const ApplicationRoutes = require("./API/Routes/Applications");
 
-                                    //Production URI  "mongodb://mongo:27017/dashboard" should have a mongo container named mongo running on port 27017
 //Promise Based MongoDb connection  TESTURI : "mongodb://localhost/dashboardtest"  should have a local mongo instance running //TODO pass URI as param to App.js
 mongoose.connect(process.env.MONGOURI ||"mongodb://localhost/dashboardtest",{useNewUrlParser : true})
 .then(()=> console.log("mongoDbConnected"))
