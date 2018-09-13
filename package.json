@@ -5,7 +5,7 @@
   "main": "Server.js",
   "scripts": {
     "testd": " nodemon --exec \"npm test\" ",
-    "test": "jest **/*.test.js",
+    "test": "jest **/*.test.js --detectOpenHandles",
     "startd": "nodemon Server.js",
     "start": "node Server.js"
   },
