@@ -18,6 +18,10 @@ describe("app testing", () => {
     afterAll( (done) =>{
         app.mongoose.connection.close();
         server.close(done);
+<<<<<<< HEAD
+=======
+        process.exit();
+>>>>>>> f73750c6fda8f30014e745e146d196c2b79069f4
     });
 
     describe("Users Route",()=>{

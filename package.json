@@ -5,7 +5,11 @@
   "main": "Server.js",
   "scripts": {
     "testd": " nodemon --exec \"npm test\" ",
+<<<<<<< HEAD
     "test": "jest **/*.test.js --detectOpenHandles --forceExit",
+=======
+    "test": "jest **/*.test.js --detectOpenHandles",
+>>>>>>> f73750c6fda8f30014e745e146d196c2b79069f4
     "startd": "nodemon Server.js",
     "start": "node Server.js"
   },
