@@ -5,29 +5,27 @@ stages:
   - production
 
 Build Container:
-  stage:build
+  stage: build
   tags: 
     - docker-test
   services:
     - docker:dind
-  script: "Build Script"
+  script:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
     - docker build -t registry.gitlab.com/Pablokiryu/dashapi .
     - docker push registry.gitlab.com/Pablokiryu/dashapi
 
 
 TESTNPM:
-  stage:test
+  stage: test
   tags:
     - node
   script:
     - npm test
 
 Staging:
-  stage:deploy
+  stage: deploy
   script:
     - docker login --username=$HEROKU_USR --password=$HEROKU_Auth registry.heroku.com
     - docker tag registry.gitlab.com/Pablokiryu/dashapi:latest registry.heroku.com/pablokiryu/murmuring-wave-13155:latest
     - docker push registry.heroku.com/Pablokiryu/murmuring-wave-13155:latest
-
-
