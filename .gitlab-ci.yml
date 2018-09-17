@@ -7,7 +7,7 @@ stages:
 Build Container:
   stage: build
   tags: 
-    - docker-test
+    - docker
   services:
     - docker:dind
   script:
