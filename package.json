@@ -6,7 +6,7 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git://github.com/Pablokiryu/dashapi"
+    "url": "http://github.com/Pablokiryu/dashapi"
   },
   "scripts": {
     "testd": " nodemon --exec \"npm test\" ",
