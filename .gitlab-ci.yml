@@ -4,10 +4,17 @@ stages:
   - deploy
   - production
 
+TESTNPM:
+  stage: test
+  tags:
+    - node
+  script:
+    - npm test
+
 Build Container:
   stage: build
   tags: 
-    - docker
+    - dockerT
   services:
     - docker:dind
   script:
@@ -16,12 +23,7 @@ Build Container:
     - docker push registry.gitlab.com/Pablokiryu/dashapi
 
 
-TESTNPM:
-  stage: test
-  tags:
-    - node
-  script:
-    - npm test
+
 
 Staging:
   stage: deploy
