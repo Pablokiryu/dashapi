@@ -5,7 +5,7 @@ stages:
   - production
 
 Build Container:
-  stage: build
+  stage:build
   tags: 
     - docker-test
   services:
@@ -17,14 +17,14 @@ Build Container:
 
 
 TESTNPM:
-  stage: test
+  stage:test
   tags:
     - node
   script:
     - npm test
 
 Staging:
-  stage: deploy
+  stage:deploy
   script:
     - docker login --username=$HEROKU_USR --password=$HEROKU_Auth registry.heroku.com
     - docker tag registry.gitlab.com/Pablokiryu/dashapi:latest registry.heroku.com/pablokiryu/murmuring-wave-13155:latest
