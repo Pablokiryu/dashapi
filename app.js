@@ -1,8 +1,10 @@
 const express = require("express");
 const app = express();
+require('dotenv').config();
 const morgan = require('morgan');
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+
 
 const userRoutes  = require("./API/Routes/Users");
 const topActiveUsersRoutes = require("./API/Routes/topActiveUsers");
@@ -10,7 +12,7 @@ const ListingsRoutes = require("./API/Routes/Listings");
 const ApplicationRoutes = require("./API/Routes/Applications");
 
 //Promise Based MongoDb connection  TESTURI : "mongodb://localhost/dashboardtest"  should have a local mongo instance running //TODO pass URI as param to App.js
-mongoose.connect(process.env.MONGOURI ||"mongodb://localhost/dashboardtest",{useNewUrlParser : true})
+mongoose.connect(process.env.MONGOURI /*||"mongodb://localhost/dashboardtest"*/,{useNewUrlParser : true})
 .then(()=> console.log("mongoDbConnected"))
 .catch(err => console.log(err));
 

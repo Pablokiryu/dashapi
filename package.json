@@ -3,6 +3,11 @@
   "version": "0.0.5",
   "description": " Backend API for Dashboards",
   "main": "Server.js",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Pablokiryu/dashapi"
+  },
   "scripts": {
     "testd": " nodemon --exec \"npm test\" ",
     "test": "jest **/*.test.js --detectOpenHandles --forceExit",
@@ -22,6 +27,7 @@
   },
   "dependencies": {
     "body-parser": "^1.18.3",
+    "dotenv": "^6.0.0",
     "expect": "^1.20.2",
     "express": "^4.16.3",
     "mongoose": "^5.2.9",
