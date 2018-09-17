@@ -14,7 +14,7 @@ TESTNPM:
 Build Container:
   stage: build
   tags: 
-    - dockerT
+    - docker
   services:
     - docker:dind
   script:
