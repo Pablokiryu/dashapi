@@ -1,4 +1,8 @@
 const mongoose = require("mongoose");
+<<<<<<< HEAD
+=======
+//mongoose.connect("mongodb://localhost/dashboard",{useNewUrlParser : true});
+>>>>>>> 9b871eb2f6a3595ffe6e3945de103588801bb74c
 const Scheme = mongoose.Schema;
 
 MySchemes ={
