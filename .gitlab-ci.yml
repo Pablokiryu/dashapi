@@ -43,8 +43,8 @@ Staging:
   script:
     - docker login --username=HEROKU_USR --password=$HEROKU_Auth registry.heroku.com
     - docker pull $CONTAINER_IMAGE
-    - docker tag $CONTAINER_IMAGE registry.heroku.com/pablokiryu/murmuring-wave-13155/web
-    - docker push registry.heroku.com/pablokiryu/murmuring-wave-13155/web
+    - docker tag $CONTAINER_IMAGE registry.heroku.com/murmuring-wave-13155/web
+    - docker push registry.heroku.com/murmuring-wave-13155/web
     - docker run --rm -e HEROKU_API_KEY=$HEROKU_Auth wingrunr21/alpine-heroku-cli container:release web --app $STAGEAPP
 
 Production:
@@ -57,6 +57,6 @@ Production:
   script:
     - docker login --username=HEROKU_USR --password=$HEROKU_Auth registry.heroku.com
     - docker pull $CONTAINER_IMAGE
-    - docker tag $CONTAINER_IMAGE registry.heroku.com/pablokiryu/dashbapi/web
-    - docker push registry.heroku.com/pablokiryu/dashbapi/web
+    - docker tag $CONTAINER_IMAGE registry.heroku.com/dashbapi/web
+    - docker push registry.heroku.com/dashbapi/web
     - docker run --rm -e HEROKU_API_KEY=$HEROKU_Auth wingrunr21/alpine-heroku-cli container:release web --app $PRODAPP
