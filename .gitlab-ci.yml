@@ -5,11 +5,11 @@ stages:
   - deploy
   - production
 variables:
-  - MONGOURI: $MONGOURI
+    MONGOURI: $MONGOURI
 
 TESTNPM:
   variables:
-  - MONGOURI: $MONGOURI_TEST
+    MONGOURI: $MONGOURI_TEST
   image: node:10.9.0
   stage: test
   script:
