@@ -1,6 +1,7 @@
+image: docker:latest
 stages:
-  - build
   - test
+  - build
   - deploy
   - production
 
@@ -22,12 +23,17 @@ Build Container:
     - docker build -t registry.gitlab.com/Pablokiryu/dashapi .
     - docker push registry.gitlab.com/Pablokiryu/dashapi
 
-
-
-
 Staging:
   stage: deploy
   script:
     - docker login --username=$HEROKU_USR --password=$HEROKU_Auth registry.heroku.com
     - docker tag registry.gitlab.com/Pablokiryu/dashapi:latest registry.heroku.com/pablokiryu/murmuring-wave-13155:latest
     - docker push registry.heroku.com/Pablokiryu/murmuring-wave-13155:latest
+
+Production:
+  stage: deploy
+  when: manual
+  script:
+    - docker login --username=$HEROKU_USR --password=$HEROKU_Auth registry.heroku.com
+    - docker tag registry.gitlab.com/Pablokiryu/dashapi:latest registry.heroku.com/pablokiryu/dashbapi:latest
+    - docker push registry.heroku.com/Pablokiryu/dashbapi:latest
