@@ -30,6 +30,10 @@ Build Container:
     - docker build -t registry.gitlab.com/pablokiryu2/dashapi .
     - docker push registry.gitlab.com/pablokiryu2/dashapi
 Staging:
+  tags: 
+    - docker
+  services:
+    - docker:dind
   stage: deploy
   tags:
     - docker
