@@ -29,6 +29,7 @@ Build Container:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
     - docker build -t registry.gitlab.com/pablokiryu2/dashapi .
     - docker push registry.gitlab.com/pablokiryu2/dashapi
+
 Staging:
   tags: 
     - docker
@@ -46,8 +47,8 @@ Staging:
     - docker push rregistry.heroku.com/pablokiryu/murmuring-wave-13155/web
     - docker run --rm -e HEROKU_API_KEY=$HEROKU_Auth wingrunr21/alpine-heroku-cli container:release web --app $STAGEAPP
 
-Staging:
-  stage: deploy
+Production:
+  stage: production
   tags:
     - docker
   only:
