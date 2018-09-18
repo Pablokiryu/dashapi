@@ -6,6 +6,7 @@ stages:
   - production
 
 TESTNPM:
+  image: node:10.9.0
   stage: test
   tags:
     - node
