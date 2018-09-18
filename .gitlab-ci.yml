@@ -9,6 +9,7 @@ TESTNPM:
   image: node:10.9.0
   stage: test
   script:
+    - npm install
     - npm test
 
 Build Container:
