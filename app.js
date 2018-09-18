@@ -22,7 +22,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use((req,res,next)=>{
-    res.header("Access-Control-Allow-Origin","*");//Everyone is
+    res.header("Access-Control-Allow-Origin","*");//Everyone is allowed
     res.header("Access-Control-Allow-Headers","Origin,X-Requested-With,Content-Type,Accept,Authorization");
     if(req.method === "OPTIONS")
     {
