@@ -1,5 +1,6 @@
 const expect = require("expect");
 const request = require("supertest");
+const port = process.env.PORT || 3000;
 const app = require("../app");
 
 
@@ -12,7 +13,7 @@ describe("app testing", () => {
 
     let server;
     beforeAll((done)=>{
-        server = app.listen(3000,done);
+        server = app.listen(port,done);
     });
     
     afterAll( (done) =>{
