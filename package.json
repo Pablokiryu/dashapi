@@ -1,6 +1,6 @@
 {
   "name": "dashboard-api",
-  "version": "0.0.5",
+  "version": "1.0.0",
   "description": " Backend API for Dashboards",
   "main": "Server.js",
   "private": true,
